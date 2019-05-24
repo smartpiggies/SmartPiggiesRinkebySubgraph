@@ -1,0 +1,107 @@
+type Piggy @entity {
+  id: ID!
+  from: Bytes! # address
+  collateral: BigInt! # uint256
+  lotSize: BigInt! # uint256
+  strike: BigInt! # uint256
+  expiryBlock: BigInt! # uint256
+  isEuro: Boolean! # bool
+  isPut: Boolean! # bool
+  RFP: Boolean! # bool
+  isOnAuction: Boolean! # bool
+  startBlock: BigInt # uint256
+  startPrice: BigInt # uint256
+  reservePrice: BigInt # uint256
+  auctionLength: BigInt # uint256
+  timeStep: BigInt # uint256
+  priceStep: BigInt # uint256
+  auctionDuration: BigInt # uint256
+}
+
+type TransferPiggy @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+
+type UpdateRFP @entity {
+  id: ID!
+  from: Bytes! # address
+  tokenId: BigInt! # uint256
+  collateralERC: Bytes! # address
+  premiumERC: Bytes! # address
+  dataResolverNow: Bytes! # address
+  dataResolverAtExpiry: Bytes! # address
+  reqCollateral: BigInt! # uint256
+  lotSize: BigInt! # uint256
+  strikePrice: BigInt! # uint256
+  expiry: BigInt! # uint256
+  isEuro: Boolean! # bool
+  isPut: Boolean! # bool
+}
+
+type ReclaimAndBurn @entity {
+  id: ID!
+  from: Bytes! # address
+  tokenId: BigInt! # uint256
+  RFP: Boolean! # bool
+}
+
+type StartAuction @entity {
+  id: ID!
+  from: Bytes! # address
+  tokenId: BigInt! # uint256
+  startBlock: BigInt! # uint256
+  startPrice: BigInt! # uint256
+  reservePrice: BigInt! # uint256
+  auctionLength: BigInt! # uint256
+  timeStep: BigInt! # uint256
+  priceStep: BigInt! # uint256
+}
+
+type EndAuction @entity {
+  id: ID!
+  from: Bytes! # address
+  tokenId: BigInt! # uint256
+  RFP: Boolean! # bool
+}
+
+type SatisfyAuction @entity {
+  id: ID!
+  from: Bytes! # address
+  tokenId: BigInt! # uint256
+  paidPremium: BigInt! # uint256
+  change: BigInt! # uint256
+  auctionPremium: BigInt! # uint256
+}
+
+type RequestSettlementPrice @entity {
+  id: ID!
+  feePayer: Bytes! # address
+  tokenId: BigInt! # uint256
+  oracleFee: BigInt! # uint256
+  dataResolver: Bytes! # address
+}
+
+type OracleReturned @entity {
+  id: ID!
+  resolver: Bytes! # address
+  tokenId: BigInt! # uint256
+  price: BigInt! # uint256
+}
+
+type SettlePiggy @entity {
+  id: ID!
+  from: Bytes! # address
+  tokenId: BigInt! # uint256
+  holderPayout: BigInt! # uint256
+  writerPayout: BigInt! # uint256
+}
+
+type ClaimPayout @entity {
+  id: ID!
+  from: Bytes! # address
+  amount: BigInt! # uint256
+  paymentToken: Bytes! # address
+}

@@ -1,0 +1,944 @@
+[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "tokenId",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "collateral",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "lotSize",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "strike",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "expiryBlock",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "isEuro",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "name": "isPut",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "name": "RFP",
+        "type": "bool"
+      }
+    ],
+    "name": "CreatePiggy",
+    "type": "event",
+    "_alias": "CreatePiggy"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferPiggy",
+    "type": "event",
+    "_alias": "TransferPiggy"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "collateralERC",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "premiumERC",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "dataResolverNow",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "dataResolverAtExpiry",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "reqCollateral",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "lotSize",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "strikePrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "expiry",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "isEuro",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "name": "isPut",
+        "type": "bool"
+      }
+    ],
+    "name": "UpdateRFP",
+    "type": "event",
+    "_alias": "UpdateRFP"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "RFP",
+        "type": "bool"
+      }
+    ],
+    "name": "ReclaimAndBurn",
+    "type": "event",
+    "_alias": "ReclaimAndBurn"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "startBlock",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "startPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "reservePrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "auctionLength",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "timeStep",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "priceStep",
+        "type": "uint256"
+      }
+    ],
+    "name": "StartAuction",
+    "type": "event",
+    "_alias": "StartAuction"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "RFP",
+        "type": "bool"
+      }
+    ],
+    "name": "EndAuction",
+    "type": "event",
+    "_alias": "EndAuction"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "paidPremium",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "change",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "auctionPremium",
+        "type": "uint256"
+      }
+    ],
+    "name": "SatisfyAuction",
+    "type": "event",
+    "_alias": "SatisfyAuction"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "feePayer",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "oracleFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "dataResolver",
+        "type": "address"
+      }
+    ],
+    "name": "RequestSettlementPrice",
+    "type": "event",
+    "_alias": "RequestSettlementPrice"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "resolver",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "price",
+        "type": "uint256"
+      }
+    ],
+    "name": "OracleReturned",
+    "type": "event",
+    "_alias": "OracleReturned"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "holderPayout",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "writerPayout",
+        "type": "uint256"
+      }
+    ],
+    "name": "SettlePiggy",
+    "type": "event",
+    "_alias": "SettlePiggy"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "paymentToken",
+        "type": "address"
+      }
+    ],
+    "name": "ClaimPayout",
+    "type": "event",
+    "_alias": "ClaimPayout"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_collateralERC",
+        "type": "address"
+      },
+      {
+        "name": "_premiumERC",
+        "type": "address"
+      },
+      {
+        "name": "_dataResolverNow",
+        "type": "address"
+      },
+      {
+        "name": "_dataResolverAtExpiry",
+        "type": "address"
+      },
+      {
+        "name": "_collateral",
+        "type": "uint256"
+      },
+      {
+        "name": "_lotSize",
+        "type": "uint256"
+      },
+      {
+        "name": "_strikePrice",
+        "type": "uint256"
+      },
+      {
+        "name": "_expiry",
+        "type": "uint256"
+      },
+      {
+        "name": "_isEuro",
+        "type": "bool"
+      },
+      {
+        "name": "_isPut",
+        "type": "bool"
+      },
+      {
+        "name": "_isRequest",
+        "type": "bool"
+      }
+    ],
+    "name": "createPiggy",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDetails",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "name": "writer",
+                "type": "address"
+              },
+              {
+                "name": "holder",
+                "type": "address"
+              },
+              {
+                "name": "collateralERC",
+                "type": "address"
+              },
+              {
+                "name": "premiumERC",
+                "type": "address"
+              },
+              {
+                "name": "dataResolverNow",
+                "type": "address"
+              },
+              {
+                "name": "dataResolverAtExpiry",
+                "type": "address"
+              }
+            ],
+            "name": "addresses",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "name": "collateral",
+                "type": "uint256"
+              },
+              {
+                "name": "lotSize",
+                "type": "uint256"
+              },
+              {
+                "name": "strikePrice",
+                "type": "uint256"
+              },
+              {
+                "name": "expiry",
+                "type": "uint256"
+              },
+              {
+                "name": "settlementPrice",
+                "type": "uint256"
+              },
+              {
+                "name": "reqCollateral",
+                "type": "uint256"
+              },
+              {
+                "name": "collateralDecimals",
+                "type": "uint8"
+              }
+            ],
+            "name": "uintDetails",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "name": "isRequest",
+                "type": "bool"
+              },
+              {
+                "name": "isEuro",
+                "type": "bool"
+              },
+              {
+                "name": "isPut",
+                "type": "bool"
+              },
+              {
+                "name": "hasBeenCleared",
+                "type": "bool"
+              }
+            ],
+            "name": "flags",
+            "type": "tuple"
+          }
+        ],
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAuctionDetails",
+    "outputs": [
+      {
+        "components": [
+          {
+            "name": "startBlock",
+            "type": "uint256"
+          },
+          {
+            "name": "expiryBlock",
+            "type": "uint256"
+          },
+          {
+            "name": "startPrice",
+            "type": "uint256"
+          },
+          {
+            "name": "reservePrice",
+            "type": "uint256"
+          },
+          {
+            "name": "timeStep",
+            "type": "uint256"
+          },
+          {
+            "name": "priceStep",
+            "type": "uint256"
+          },
+          {
+            "name": "auctionActive",
+            "type": "bool"
+          },
+          {
+            "name": "satisfyInProgress",
+            "type": "bool"
+          }
+        ],
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "name": "getOwnedPiggies",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "name": "_erc20",
+        "type": "address"
+      }
+    ],
+    "name": "getERC20balance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "name": "_collateralERC",
+        "type": "address"
+      },
+      {
+        "name": "_premiumERC",
+        "type": "address"
+      },
+      {
+        "name": "_dataResolverNow",
+        "type": "address"
+      },
+      {
+        "name": "_dataResolverAtExpiry",
+        "type": "address"
+      },
+      {
+        "name": "_reqCollateral",
+        "type": "uint256"
+      },
+      {
+        "name": "_lotSize",
+        "type": "uint256"
+      },
+      {
+        "name": "_strikePrice",
+        "type": "uint256"
+      },
+      {
+        "name": "_expiry",
+        "type": "uint256"
+      },
+      {
+        "name": "_isEuro",
+        "type": "bool"
+      },
+      {
+        "name": "_isPut",
+        "type": "bool"
+      }
+    ],
+    "name": "updateRFP",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "reclaimAndBurn",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "name": "_startPrice",
+        "type": "uint256"
+      },
+      {
+        "name": "_reservePrice",
+        "type": "uint256"
+      },
+      {
+        "name": "_auctionLength",
+        "type": "uint256"
+      },
+      {
+        "name": "_timeStep",
+        "type": "uint256"
+      },
+      {
+        "name": "_priceStep",
+        "type": "uint256"
+      }
+    ],
+    "name": "startAuction",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "endAuction",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "satisfyAuction",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "name": "_oracleFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "requestSettlementPrice",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "name": "_price",
+        "type": "uint256"
+      }
+    ],
+    "name": "_callback",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "settlePiggy",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_paymentToken",
+        "type": "address"
+      },
+      {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimPayout",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "kill",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

@@ -1,0 +1,53 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: rinkeby
+    source:
+      address: "0x1f59e6404a44be3220a0c44914d846fd89518eff"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - CreatePiggy
+        - TransferPiggy
+        - UpdateRFP
+        - ReclaimAndBurn
+        - StartAuction
+        - EndAuction
+        - SatisfyAuction
+        - RequestSettlementPrice
+        - OracleReturned
+        - SettlePiggy
+        - ClaimPayout
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: CreatePiggy(address,uint256,uint256,uint256,uint256,uint256,bool,bool,bool)
+          handler: handleCreatePiggy
+        - event: TransferPiggy(address,address,uint256)
+          handler: handleTransferPiggy
+        - event: UpdateRFP(address,uint256,address,address,address,address,uint256,uint256,uint256,uint256,bool,bool)
+          handler: handleUpdateRFP
+        - event: ReclaimAndBurn(address,uint256,bool)
+          handler: handleReclaimAndBurn
+        - event: StartAuction(address,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleStartAuction
+        - event: EndAuction(address,uint256,bool)
+          handler: handleEndAuction
+        - event: SatisfyAuction(address,uint256,uint256,uint256,uint256)
+          handler: handleSatisfyAuction
+        - event: RequestSettlementPrice(address,uint256,uint256,address)
+          handler: handleRequestSettlementPrice
+        - event: OracleReturned(address,uint256,uint256)
+          handler: handleOracleReturned
+        - event: SettlePiggy(address,uint256,uint256,uint256)
+          handler: handleSettlePiggy
+        - event: ClaimPayout(address,uint256,address)
+          handler: handleClaimPayout
+      file: ./src/mapping.ts
